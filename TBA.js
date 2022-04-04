@@ -140,7 +140,7 @@ class BlueAlliance {
      * @returns {Promise<Object>} A promise containing a match statstics object representing a match.
      * @async
      */
-         async getEventInsights(event){
+      async getEventInsights(event){
             var eventkey = event.year + event.event_code;
             return await this.callTBA("/event/" + eventkey"/insights");
         }
