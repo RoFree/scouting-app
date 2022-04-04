@@ -4,8 +4,8 @@ async function submit(){
     var form = document.getElementById("theForm");
     var team = form.elements["entry.1638702746"].value;
     var match_number = form.elements["entry.508602665"].value;
-    var tba = new BlueAlliance("YOURAPIKEY");
-    var event_id = "cada" //you can get this by looking at a url for a blue alliance event
+    var tba = new BlueAlliance("OuQqtF0trtw2zR4l6A5E6mQGhAumDyt2FGPCNhfo67ogm2pndWCA2eSgzyeyBLIr");
+    var event_id = form.elements["entry.event"].value.toLowerCase(); //you can get this by looking at a url for a blue alliance event
     var event_year = 2022 
     var event = await tba.getEvent(event_id, event_year);
     var match = await tba.getMatch(event, "q", match_number); //get match data as large array, assumes qual matches
@@ -13,7 +13,7 @@ async function submit(){
     var a = (match['alliances']["blue"]["team_keys"].includes("frc"+team)) ? "blue":"red"; //what color alliance
     var num = match['alliances'][a]["team_keys"].indexOf("frc"+team);//index of robot in alliance, reminder js arrays are weird
     addHidden(form, "barsdone", match["score_breakdown"][a]["endgameRobot"+num]);
-    var nickname  = await TrackEvent.getTeam(team); //get team nickname
+    var nickname  = await tba.getTeam(team); //get team nickname
     addHidden(form, "entry.215295328", nickname);
     return true; //submit form
 }
