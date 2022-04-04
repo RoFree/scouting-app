@@ -142,7 +142,7 @@ class BlueAlliance {
      */
       async getEventInsights(event){
             var eventkey = event.year + event.event_code;
-            return await this.callTBA("/event/" + eventkey"/insights");
+            return await this.callTBA("/event/" + eventkey+"/insights");
         }
    
    
