@@ -4,9 +4,9 @@ async function submit(){
     var form = document.getElementById("theForm");
     var teamID = form.elements["entry.1638702746"].value;
     var match_number = form.elements["entry.508602665"].value;
-    var tba = new BlueAlliance("OuQqtF0trtw2zR4l6A5E6mQGhAumDyt2FGPCNhfo67ogm2pndWCA2eSgzyeyBLIr");
+    var tba = new BlueAlliance("YOURAPIKEY");
     var event_id = form.elements["entry.event"].value.toLowerCase(); //you can get this by looking at a url for a blue alliance event
-    var event_year = 2022 
+    var event_year = new Date().getFullYear();
     var event = await tba.getEvent(event_id, event_year);
     var match = await tba.getMatch(event, "q", match_number); //get match data as large array, assumes qual matches
     if(!tba.isMatchDone(match)) return false; //check match has actually finished
