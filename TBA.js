@@ -58,6 +58,18 @@ class BlueAlliance {
         return await this.callTBA("/event/" + eventkey);
     }
 
+    async getEventInsights(event){
+        var eventkey = event.year + event.event_code;
+        return await this.callTBA("/event/" + eventkey"/insights");
+    }
+
+    async getTeamOPR(event, teamID){
+        var eventkey = event.year + event.event_code;
+        oprs = tba.callTBA("/event/"+eventkey+"/oprs");
+        var i = oprs["ccwms"].getIndexOf("frc"+teamID);
+        return [oprs["ccwms"][i], oprs["dprs"][i], oprs["oprs"][i]]
+    }
+
     /**
      * Base function - Gives information about a match.
      * @param {Object} event - The event that the match takes place at.
