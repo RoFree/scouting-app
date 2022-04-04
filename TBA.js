@@ -14,6 +14,11 @@ class BlueAlliance {
 
     // TBA basic FUNCTIONS
 
+    /**
+     * Base function - basic api call utility
+     * @param {String} request - This is the api request. Ex: "/team/frc766" or "/event/2022cada/teams"
+     * @returns {Promise<Object>} A promise containing the results of the api call.
+     */
     async callTBA(request) {
         var authkey = this.authkey;
         

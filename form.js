@@ -1,5 +1,4 @@
 //add api data to form before submit
-
 async function submit(){
     var form = document.getElementById("theForm"); //save form object for easy access
     var teamID = form.elements["entry.1638702746"].value;
@@ -17,19 +16,19 @@ async function submit(){
 }
 
 
+/** Adds a hidden form field with the provided data to the form passed in.
+ * @param {Object} theForm - The form DOM object.
+ * @param {String} key - name of the hidden form field.
+ * @param {Object} value - arbitrary value of the hidden form field.
+ * @returns {void}
+ */
 function addHidden(theForm, key, value) {
-    // Create a hidden input element, and append it to the form:
     var input = document.createElement('input');
     input.type = 'hidden';
     input.name = key; 
     input.value = value;
     theForm.appendChild(input);
 }
-
-
-
-
-
 
 
 //missed lower
