@@ -92,9 +92,8 @@ class BlueAlliance {
      */
     async getTeamOPR(event, teamID){
         var eventkey = event.key;
-        var oprs = tba.callTBA("/event/"+eventkey+"/oprs");
-        var i = oprs["ccwms"].getIndexOf("frc"+teamID);
-        return [oprs["ccwms"][i], oprs["dprs"][i], oprs["oprs"][i]]
+        var oprs = await tba.callTBA("/event/"+eventkey+"/oprs");
+        return [oprs["ccwms"]["frc"+teamID], oprs["dprs"]["frc"+teamID], oprs["oprs"]["frc"+teamID]]
     }
 
     // EVENT FUNCTIONS
