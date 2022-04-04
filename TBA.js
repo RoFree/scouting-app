@@ -1,5 +1,5 @@
 //port of NPM bluealliance package, see https://github.com/nitroxplunge/bluealliance
-//see ^ for docs
+//see ^ for docs (I added some extra api calls for ease of life)
 //used under MIT license
 
 class BlueAlliance {
@@ -12,7 +12,7 @@ class BlueAlliance {
         this.status = "Unknown";
     }
 
-    // TBA FUNCTIONS
+    // TBA basic FUNCTIONS
 
     async callTBA(request) {
         var authkey = this.authkey;
@@ -58,32 +58,6 @@ class BlueAlliance {
         return await this.callTBA("/event/" + eventkey);
     }
 
-    async getEventInsights(event){
-        var eventkey = event.year + event.event_code;
-        return await this.callTBA("/event/" + eventkey"/insights");
-    }
-
-    async getTeamOPR(event, teamID){
-        var eventkey = event.year + event.event_code;
-        oprs = tba.callTBA("/event/"+eventkey+"/oprs");
-        var i = oprs["ccwms"].getIndexOf("frc"+teamID);
-        return [oprs["ccwms"][i], oprs["dprs"][i], oprs["oprs"][i]]
-    }
-
-    /**
-     * Base function - Gives information about a match.
-     * @param {Object} event - The event that the match takes place at.
-     * @param {String} complevel - The level of play of the match (q, ef, qf, sf, f) (qualifications, eliminations, quarter finals, semi-finals, finals)
-     * @param {Int} matchnum - The number of the match in the competition level.
-     * @param {Int} seminum - The number of the match in the match set.
-     * @returns {Promise<Object>} A promise containing a match object representing a match.
-     * @async
-     */
-    async getMatch(event, complevel, matchnum, seminum) {
-        if (!seminum) seminum = "";
-        var matchkey = event.year + event.event_code + "_" + complevel + seminum + "m" + matchnum;
-        return await this.callTBA("/match/" + matchkey);
-    }
 
     // TEAM FUNCTIONS
 
@@ -107,6 +81,20 @@ class BlueAlliance {
     async getEventsForTeam(team) {
         var teamkey = team.key;
         return await this.callTBA("/team/" + teamkey + "/events");
+    }
+
+   /**
+     * Team function - Gives information about a team analytic data for an event.
+     * @param {Object} event - The event that the match takes place at.
+     * @param {Int} teamID - The team number to fetch analytics data for.
+     * @returns {Promise<Object>} A promise containing an array representing the three analytics fields [ccwms, dprs, oprs].
+     * @async
+     */
+    async getTeamOPR(event, teamID){
+        var eventkey = event.year + event.event_code;
+        oprs = tba.callTBA("/event/"+eventkey+"/oprs");
+        var i = oprs["ccwms"].getIndexOf("frc"+teamID);
+        return [oprs["ccwms"][i], oprs["dprs"][i], oprs["oprs"][i]]
     }
 
     // EVENT FUNCTIONS
@@ -146,6 +134,18 @@ class BlueAlliance {
         return "None"
     }
 
+    /**
+     * Event function - Gives statistical information about an event.
+     * @param {Object} event - The event that the match takes place at.
+     * @returns {Promise<Object>} A promise containing a match statstics object representing a match.
+     * @async
+     */
+         async getEventInsights(event){
+            var eventkey = event.year + event.event_code;
+            return await this.callTBA("/event/" + eventkey"/insights");
+        }
+   
+   
     // MATCH FUNCTIONS
 
     /**
@@ -183,4 +183,18 @@ class BlueAlliance {
         return false;
     }
 
+    /**
+     * Match function - Gives information about a match.
+     * @param {Object} event - The event that the match takes place at.
+     * @param {String} complevel - The level of play of the match (q, ef, qf, sf, f) (qualifications, eliminations, quarter finals, semi-finals, finals)
+     * @param {Int} matchnum - The number of the match in the competition level.
+     * @param {Int} seminum - The number of the match in the match set.
+     * @returns {Promise<Object>} A promise containing a match object representing a match.
+     * @async
+     */
+     async getMatch(event, complevel, matchnum, seminum) {
+        if (!seminum) seminum = "";
+        var matchkey = event.year + event.event_code + "_" + complevel + seminum + "m" + matchnum;
+        return await this.callTBA("/match/" + matchkey);
+    }
 };
