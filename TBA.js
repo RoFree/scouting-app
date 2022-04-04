@@ -184,6 +184,38 @@ class BlueAlliance {
     }
 
     /**
+     * Tells team alliance color.
+     * @param {Object} match - A match.
+     * @param {Integer} teamID - The team id number (ie. 766 or 254)
+     * @returns {String} Team alliance color, all lowercase.
+     */        
+    getAlliance(match, teamID){
+        return (match['alliances']["blue"]["team_keys"].includes("frc"+teamID)) ? "blue":"red";
+    }
+
+    /**
+     * Tells team index within an alliance.
+     * @param {Object} match - A match.
+     * @param {Integer} teamID - The team id number (ie. 766 or 254)
+     * @returns {Integer} Team index in alliance, bounded [1, 3].
+     */  
+    getRobotIndex(match, teamID){
+        return match['alliances'][getAlliance(match, teamID)]["team_keys"].indexOf("frc"+teamID);
+    }
+    
+    /**
+     * Tells endgame score (bar reached).
+     * @param {Object} match - A match.
+     * @param {Integer} teamID - The team id number (ie. 766 or 254)
+     * @returns {String} Bar reached at endgame considered in scoring.
+     */    
+    endgameScore(match, teamID){
+        var alliance = getAlliance(match, teamID);
+        var team_index = getRobotIndex(match, teamID); 
+        return match["score_breakdown"][alliance]["endgameRobot"+team_index]; //return correct score breakdown
+    }
+
+    /**
      * Match function - Gives information about a match.
      * @param {Object} event - The event that the match takes place at.
      * @param {String} complevel - The level of play of the match (q, ef, qf, sf, f) (qualifications, eliminations, quarter finals, semi-finals, finals)
