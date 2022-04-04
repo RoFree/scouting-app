@@ -22,10 +22,12 @@
 <body>
 <div class="container">
 <form 
-    action="https://jayagra.com/scout/submit.php"
     target="_self"
+    action="https://jayagra.com/scout/submit.php"
     method="POST"
     name="mainForm"
+    id="theForm"
+    onsubmit="return submit()"
 >
 <!--onclick="window.location.href = 'done.html';"-->
 <!--FORM CHECKBOX OVERRIDES TO WRITE OFF ON UNBOXES-->
@@ -109,12 +111,11 @@ hidden
 placeholder="xxxxxxxxxxxx"
 type="text"
 name="entry.key"
-id="psw1"
-required>
+id="psw1">
 </fieldset>
 <fieldset>
     <label for="Event Code">Event Code</label><br>
-<select name="entry.event" required>
+<select name="entry.event">
     <option value="CADA">CADA - Sacramento Regional</option>
     <option value="CASJ">CASJ - Silicon Valley Regional</option>
 </select>
@@ -124,8 +125,7 @@ required>
 <input
 placeholder="Amon Gus"
 type="text"
-name="entry.398176575"
-required>
+name="entry.398176575">
 </fieldset>
 
 <fieldset>
@@ -134,16 +134,11 @@ required>
     placeholder="766"
     type="number"
     name="entry.1638702746"
-    required>
+>
 </fieldset>
 
 <fieldset>
 <label for="Name of the Team you are Scouting">Name of the Team you are Scouting<br></label>
-<input
-    placeholder="Bears"
-    type="text"
-    name="entry.215295328"
-    required>
 </fieldset>
 <fieldset>
     <label for="Match Number">Match Number<br></label>
@@ -251,12 +246,7 @@ value="0"
 name="barsatt"
 ><br>
 <button onclick="incValueBarsAtt()" type="button" style="width: 9rem; margin-top: 0.35rem;">⟰</button><br>
-Bars climbed:<br><input
-id="barsdone"
-type="text"
-value="0"
-name="barsdone"
-><br>
+Bars climbed:<br><<br>
 <button onclick="incValueBarsDone()" type="button" style="width: 9rem; margin-top: 0.35rem;">⟰</button><br>
 </fieldset>
 <fieldset>
@@ -310,22 +300,12 @@ name="barsdone"
         >&emsp;The robot did not attempt to score<br>
 </fieldset>
 <fieldset>
-    <label for="How many points did the team receive in End Game?">How many points did the team receive in End Game?<br></label>
-    <select name="entry.699092517">
-        <option value="0">0 - No Bars</option>
-        <option value="4">4 - Low Bar</option>
-        <option value="6">6 - Mid Bar</option>
-        <option value="10">10 - High Bar</option>
-        <option value="15">15 - Traversal Bar</option>
-    </select>
-</fieldset>
-<fieldset>
     <label for="Rule Violations?">Rule Violations?<br></label>
     <input
         placeholder="0"
         type="number"
         name="entry.1019141500"
-        required>
+    >
 </fieldset>
 <fieldset>
     <input
@@ -341,7 +321,7 @@ name="barsdone"
     <label>How would you estimate the consistency of the team's performance in the auton?</label><br>
     <select
     name="entry.1152778382"
-    required>
+>
     <option value="Their performance seems promising and consistent">Their performance seems promising and consistent</option>
     <option value="Their performance seems somewhat consistent">Their performance seems somewhat consistent</option>
     <option value="Their performance may change across different trials">Their performance may change across different trials</option>
@@ -381,8 +361,9 @@ name="barsdone"
     Recognition of Science and Technology (FIRST). ©2021 FIRST. All rights reserved. Used with non-exclusive permission.</p>
 </form>
 <br><br>
-    <script src="form.js"></script>
+    <script src="test.js"></script>
     </div>
+<script src="TBA.js"></script>
 <script>
 var coll = document.getElementsByClassName("formOne");
 var i;
