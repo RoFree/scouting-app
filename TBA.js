@@ -92,7 +92,7 @@ class BlueAlliance {
      */
     async getTeamOPR(event, teamID){
         var eventkey = event.key;
-        oprs = tba.callTBA("/event/"+eventkey+"/oprs");
+        var oprs = tba.callTBA("/event/"+eventkey+"/oprs");
         var i = oprs["ccwms"].getIndexOf("frc"+teamID);
         return [oprs["ccwms"][i], oprs["dprs"][i], oprs["oprs"][i]]
     }
