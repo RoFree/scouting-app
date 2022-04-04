@@ -2,7 +2,7 @@
 
 async function submit(){
     var form = document.getElementById("theForm");
-    var team = form.elements["entry.1638702746"].value;
+    var teamID = form.elements["entry.1638702746"].value;
     var match_number = form.elements["entry.508602665"].value;
     var tba = new BlueAlliance("OuQqtF0trtw2zR4l6A5E6mQGhAumDyt2FGPCNhfo67ogm2pndWCA2eSgzyeyBLIr");
     var event_id = form.elements["entry.event"].value.toLowerCase(); //you can get this by looking at a url for a blue alliance event
@@ -10,11 +10,11 @@ async function submit(){
     var event = await tba.getEvent(event_id, event_year);
     var match = await tba.getMatch(event, "q", match_number); //get match data as large array, assumes qual matches
     if(!tba.isMatchDone(match)) return false; //check match has actually finished
-    var a = (match['alliances']["blue"]["team_keys"].includes("frc"+team)) ? "blue":"red"; //what color alliance
-    var num = match['alliances'][a]["team_keys"].indexOf("frc"+team);//index of robot in alliance, reminder js arrays are weird
+    var a = (match['alliances']["blue"]["team_keys"].includes("frc"+teamID)) ? "blue":"red"; //what color alliance
+    var num = match['alliances'][a]["team_keys"].indexOf("frc"+teamID);//index of robot in alliance, reminder js arrays are weird
     addHidden(form, "barsdone", match["score_breakdown"][a]["endgameRobot"+num]);
-    var nickname  = await tba.getTeam(team); //get team nickname
-    addHidden(form, "entry.215295328", nickname);
+    var team  = await tba.getTeam(teamID); //get team nickname
+    addHidden(form, "entry.215295328", team.nickname);
     return true; //submit form
 }
 
