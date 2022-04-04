@@ -10,9 +10,7 @@ async function submit(){
     var event = await tba.getEvent(event_id, event_year);
     var match = await tba.getMatch(event, "q", match_number); //get match data as large array, assumes qual match
     if(!tba.isMatchDone(match)) return false; //check match has actually finished
-    var a = (match['alliances']["blue"]["team_keys"].includes("frc"+teamID)) ? "blue":"red"; //what color alliance
-    var num = match['alliances'][a]["team_keys"].indexOf("frc"+teamID);//index of robot in alliance, reminder js arrays are weird
-    addHidden(form, "barsdone", match["score_breakdown"][a]["endgameRobot"+num]);
+    addHidden(form, "barsdone", endgameScore(match, teamID));
     var team  = await tba.getTeam(teamID); //get team obj
     addHidden(form, "entry.215295328", team.nickname);
     return true; //submit form
