@@ -1,18 +1,18 @@
 //add api data to form before submit
 
 async function submit(){
-    var form = document.getElementById("theForm");
+    var form = document.getElementById("theForm"); //save form object for easy access
     var teamID = form.elements["entry.1638702746"].value;
     var match_number = form.elements["entry.508602665"].value;
     var tba = new BlueAlliance("OuQqtF0trtw2zR4l6A5E6mQGhAumDyt2FGPCNhfo67ogm2pndWCA2eSgzyeyBLIr");
-    var event_id = form.elements["entry.event"].value.toLowerCase(); //you can get this by looking at a url for a blue alliance event
+    var event_id = form.elements["entry.event"].value.toLowerCase();
     var event_year = new Date().getFullYear();
-    var event = await tba.getEvent(event_id, event_year);
+    var event = await tba.getEvent(event_id, event_year); 
     var match = await tba.getMatch(event, "q", match_number); //get match data as large array, assumes qual match
-    if(!tba.isMatchDone(match)) return false; //check match has actually finished
-    addHidden(form, "barsdone", endgameScore(match, teamID));
+    if(!tba.isMatchDone(match)) return false; //check match has actually finished before submit
+    addHidden(form, "barsdone", endgameScore(match, teamID)); //automate collection of endgame data
     var team  = await tba.getTeam(teamID); //get team obj
-    addHidden(form, "entry.215295328", team.nickname);
+    addHidden(form, "entry.215295328", team.nickname); //automate logging to team name based on team number
     return true; //submit form
 }
 
